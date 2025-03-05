@@ -30,4 +30,11 @@ public abstract class Transaction {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Transaction(Double amount, Boolean recurring, String description){
+        this.amount = amount;
+        this.recurring = recurring;
+        this.description = description;
+        this.date = LocalDate.now();
+    }
 }
