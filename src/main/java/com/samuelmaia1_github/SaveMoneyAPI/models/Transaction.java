@@ -3,25 +3,31 @@ package com.samuelmaia1_github.SaveMoneyAPI.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Table(name = "transactions")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "transaction_type", discriminatorType = DiscriminatorType.STRING)
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Transaction {
+public abstract class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     private Double amount;
 
-    private Boolean isRecurring;
+    private Boolean recurring;
 
-    private Date date;
+    private LocalDate date;
 
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

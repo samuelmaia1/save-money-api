@@ -1,12 +1,10 @@
 package com.samuelmaia1_github.SaveMoneyAPI.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "users")
@@ -39,9 +37,8 @@ public class User {
 
     private String uf;
 
-    private Date registerDate;
+    private LocalDate registerDate;
 
-    private List<Transaction> transactions;
-
-    private List<Investment> investments;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transaction> transactions = new ArrayList<>();
 }
