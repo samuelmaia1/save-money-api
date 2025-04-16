@@ -1,5 +1,6 @@
 package com.samuelmaia1_github.SaveMoneyAPI.models;
 
+import com.samuelmaia1_github.SaveMoneyAPI.dtos.UserDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,18 +28,15 @@ public class User {
 
     private String password;
 
-    private String cep;
-
-    private String street;
-
-    private String city;
-
-    private String neighborhood;
-
-    private String uf;
-
-    private LocalDate registerDate;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> transactions = new ArrayList<>();
+
+    public User() {}
+
+    public User(UserDto data) {
+        this.cpf = data.getCpf();
+        this.name = data.getName();
+        this.email = data.getEmail();
+        this.password = data.getPassword();
+    }
 }
