@@ -23,7 +23,7 @@ public class Income extends Transaction{
     private String source;
 
     public Income (NewIncomeDto data) {
-        super (data.value(), data.isCurrent(), data.description(), data.date());
+        super (data.value(), data.isCurrent(), data.description(), data.date(), "income");
         this.source = data.source();
     }
 }

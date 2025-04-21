@@ -27,14 +27,17 @@ public class Transaction {
 
     private LocalDate date;
 
+    private String type;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Transaction(Double value, Boolean isCurrent, String description, LocalDate date) {
+    public Transaction(Double value, Boolean isCurrent, String description, LocalDate date, String type) {
         this.value = value;
         this.isCurrent = isCurrent;
         this.description = description;
         this.date = date;
+        this.type = type;
     }
 }

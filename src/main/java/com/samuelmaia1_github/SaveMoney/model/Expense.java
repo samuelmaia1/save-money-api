@@ -25,7 +25,7 @@ public class Expense extends Transaction {
     private String receiver;
 
     public Expense(NewExpenseDto data) {
-        super (data.value(), data.isCurrent(), data.description(), data.date());
+        super (data.value(), data.isCurrent(), data.description(), data.date(), "outcome");
         this.category = data.category();
         this.receiver = data.receiver();
     }
