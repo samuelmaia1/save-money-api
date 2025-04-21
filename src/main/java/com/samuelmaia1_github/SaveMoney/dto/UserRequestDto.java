@@ -1,12 +1,9 @@
 package com.samuelmaia1_github.SaveMoney.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRequestDto {
@@ -14,4 +11,20 @@ public class UserRequestDto {
     private String lastName;
     private String email;
     private String password;
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }

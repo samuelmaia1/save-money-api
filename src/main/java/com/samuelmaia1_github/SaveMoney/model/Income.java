@@ -24,8 +24,12 @@ public class Income extends Transaction{
     private String source;
 
     public Income (NewIncomeDto data) {
-        super (data.value(), data.isCurrent(), data.description(), data.date(), "income");
+        super (data.value(), data.isCurrent(), data.description(), data.date());
         this.source = data.source();
+    }
+
+    public @NotNull @Size(max = 100) String getSource() {
+        return source;
     }
 
     @Override

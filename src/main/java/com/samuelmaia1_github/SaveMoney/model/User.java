@@ -7,7 +7,7 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Table(name = "user")
+@Table(name = "users")
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,5 +37,29 @@ public class User {
         this.lastName = data.getLastName();
         this.email = data.getEmail();
         this.password = data.getPassword();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 }

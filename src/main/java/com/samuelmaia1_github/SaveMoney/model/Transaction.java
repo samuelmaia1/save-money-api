@@ -39,5 +39,29 @@ public abstract class Transaction {
         this.date = date;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public Double getValue() {
+        return value;
+    }
+
+    public Boolean getIsCurrent() {
+        return isCurrent;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
     public abstract TransactionDto toDto();
 }
