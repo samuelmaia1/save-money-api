@@ -18,4 +18,24 @@ public class ErrorResponse {
         this.path = path;
         this.status = status;
     }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
 }

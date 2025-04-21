@@ -5,7 +5,6 @@ import lombok.Getter;
 
 import java.time.LocalDate;
 
-@Getter
 @AllArgsConstructor
 public class TransactionDto {
     private String id;
@@ -54,5 +53,41 @@ public class TransactionDto {
         this.isCurrent = isCurrent;
         this.receiver = receiver;
         this.category = category;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Double getValue() {
+        return value;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Boolean getIsCurrent() {
+        return isCurrent;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public String getCategory() {
+        return category;
     }
 }

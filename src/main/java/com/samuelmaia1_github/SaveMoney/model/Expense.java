@@ -1,6 +1,6 @@
 package com.samuelmaia1_github.SaveMoney.model;
 
-import com.samuelmaia1_github.SaveMoney.dto.NewExpenseDto;
+import com.samuelmaia1_github.SaveMoney.dto.ExpenseDto;
 import com.samuelmaia1_github.SaveMoney.dto.TransactionDto;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -25,7 +25,7 @@ public class Expense extends Transaction {
     @Size(max = 100)
     private String receiver;
 
-    public Expense(NewExpenseDto data) {
+    public Expense(ExpenseDto data) {
         super (data.value(), data.isCurrent(), data.description(), data.date());
         this.category = data.category();
         this.receiver = data.receiver();

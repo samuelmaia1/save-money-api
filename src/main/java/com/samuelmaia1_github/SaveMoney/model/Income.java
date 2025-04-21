@@ -1,6 +1,6 @@
 package com.samuelmaia1_github.SaveMoney.model;
 
-import com.samuelmaia1_github.SaveMoney.dto.NewIncomeDto;
+import com.samuelmaia1_github.SaveMoney.dto.IncomeDto;
 import com.samuelmaia1_github.SaveMoney.dto.TransactionDto;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -9,8 +9,6 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
@@ -23,7 +21,7 @@ public class Income extends Transaction{
     @Size(max = 100)
     private String source;
 
-    public Income (NewIncomeDto data) {
+    public Income (IncomeDto data) {
         super (data.value(), data.isCurrent(), data.description(), data.date());
         this.source = data.source();
     }

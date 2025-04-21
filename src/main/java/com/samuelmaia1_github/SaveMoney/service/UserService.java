@@ -2,6 +2,7 @@ package com.samuelmaia1_github.SaveMoney.service;
 
 import com.samuelmaia1_github.SaveMoney.dto.UserRequestDto;
 import com.samuelmaia1_github.SaveMoney.dto.UserResponseDto;
+import com.samuelmaia1_github.SaveMoney.exception.UserAlreadyExistsException;
 import com.samuelmaia1_github.SaveMoney.model.User;
 import com.samuelmaia1_github.SaveMoney.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,15 @@ public class UserService {
     }
 
     public User addUser(UserRequestDto data) {
+        if (repository.existsByEmail(data.getEmail()))
+            throw new UserAlreadyExistsException("E-mail já cadastrado");
         User user = new User(data);
         user.setPassword(encoder.encode(user.getPassword()));
         return repository.save(user);
+    }
+
+    public UserResponseDto toDto(User user) {
+        return dtoService.convertToUserDto(user);
     }
 
     public UserResponseDto getUserById(String id) {

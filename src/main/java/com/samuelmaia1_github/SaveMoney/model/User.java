@@ -32,6 +32,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> transactions = new ArrayList<>();
 
+    public User() {}
+
     public User(UserRequestDto data) {
         this.name = data.getName();
         this.lastName = data.getLastName();
@@ -61,5 +63,9 @@ public class User {
 
     public List<Transaction> getTransactions() {
         return transactions;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

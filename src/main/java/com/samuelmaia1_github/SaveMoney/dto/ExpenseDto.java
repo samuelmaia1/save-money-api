@@ -6,8 +6,9 @@ import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDate;
 
-public record NewIncomeDto(
-        @NotNull String source,
+public record ExpenseDto(
+        @NotNull String receiver,
+        @NotNull String category,
         @NotNull Double value,
         @NotNull Boolean isCurrent,
         @NotNull String description,

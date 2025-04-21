@@ -19,4 +19,24 @@ public class UserResponseDto {
         this.transactions = transactions;
         this.email = email;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public List<TransactionDto> getTransactions() {
+        return transactions;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 }
