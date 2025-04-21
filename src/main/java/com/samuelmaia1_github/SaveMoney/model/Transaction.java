@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Table(name = "transaction")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "transaction_type", discriminatorType = DiscriminatorType.STRING)
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,8 +21,6 @@ public class Transaction {
 
     private Double value;
 
-    private String category;
-
     private Boolean isCurrent;
 
     private String description;
@@ -30,4 +30,11 @@ public class Transaction {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Transaction(Double value, Boolean isCurrent, String description, LocalDate date) {
+        this.value = value;
+        this.isCurrent = isCurrent;
+        this.description = description;
+        this.date = date;
+    }
 }
