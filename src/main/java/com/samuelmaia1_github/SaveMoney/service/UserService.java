@@ -1,8 +1,12 @@
 package com.samuelmaia1_github.SaveMoney.service;
 
+import com.samuelmaia1_github.SaveMoney.dto.LoginDto;
 import com.samuelmaia1_github.SaveMoney.dto.UserRequestDto;
 import com.samuelmaia1_github.SaveMoney.dto.UserResponseDto;
+import com.samuelmaia1_github.SaveMoney.exception.InvalidCredentialsException;
 import com.samuelmaia1_github.SaveMoney.exception.UserAlreadyExistsException;
+import com.samuelmaia1_github.SaveMoney.exception.UserNotFoundException;
+import com.samuelmaia1_github.SaveMoney.httpResponse.LoginResponse;
 import com.samuelmaia1_github.SaveMoney.model.User;
 import com.samuelmaia1_github.SaveMoney.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +24,11 @@ public class UserService {
     @Autowired
     private DtoService dtoService;
 
-    private final PasswordEncoder encoder;
+    @Autowired
+    private TokenService tokenService;
 
-    public UserService(PasswordEncoder encoder) {
-        this.encoder = encoder;
-    }
+    @Autowired
+    private PasswordEncoder encoder;
 
     public User addUser(UserRequestDto data) {
         if (repository.existsByEmail(data.getEmail()))
@@ -41,6 +45,19 @@ public class UserService {
     public UserResponseDto getUserById(String id) {
         Optional<User> user = repository.findById(id);
         return user.isPresent() ? dtoService.convertToUserDto(user.get()) : null;
+    }
+
+    public LoginResponse validateLogin(LoginDto loginData) {
+        System.out.println(loginData.email());
+        User user = repository.findByEmail(loginData.email());
+
+        if (user == null)
+            throw new UserNotFoundException("Usuário com este e-mail não encontrado.");
+
+        if (!encoder.matches(loginData.password(), user.getPassword()))
+            throw new InvalidCredentialsException("Senha inválida.");
+
+        return new LoginResponse(true, this.toDto(user), tokenService.generateToken(user));
     }
 
     public List<UserResponseDto> getAllUsers() {
