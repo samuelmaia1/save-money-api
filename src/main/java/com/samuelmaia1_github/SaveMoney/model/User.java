@@ -1,5 +1,6 @@
 package com.samuelmaia1_github.SaveMoney.model;
 
+import com.samuelmaia1_github.SaveMoney.dto.UserRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,4 +31,11 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> transactions = new ArrayList<>();
+
+    public User(UserRequestDto data) {
+        this.name = data.getName();
+        this.lastName = data.getLastName();
+        this.email = data.getEmail();
+        this.password = data.getPassword();
+    }
 }
