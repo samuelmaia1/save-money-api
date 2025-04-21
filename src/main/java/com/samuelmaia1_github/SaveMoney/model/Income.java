@@ -1,6 +1,7 @@
 package com.samuelmaia1_github.SaveMoney.model;
 
 import com.samuelmaia1_github.SaveMoney.dto.NewIncomeDto;
+import com.samuelmaia1_github.SaveMoney.dto.TransactionDto;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
@@ -25,5 +26,18 @@ public class Income extends Transaction{
     public Income (NewIncomeDto data) {
         super (data.value(), data.isCurrent(), data.description(), data.date(), "income");
         this.source = data.source();
+    }
+
+    @Override
+    public TransactionDto toDto() {
+        return new TransactionDto(
+                this.getId(),
+                "income",
+                this.getValue(),
+                this.getDate(),
+                this.getDescription(),
+                this.getIsCurrent(),
+                this.getSource()
+        );
     }
 }

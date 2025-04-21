@@ -1,5 +1,6 @@
 package com.samuelmaia1_github.SaveMoney.model;
 
+import com.samuelmaia1_github.SaveMoney.dto.TransactionDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class Transaction {
+public abstract class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
@@ -27,17 +28,16 @@ public class Transaction {
 
     private LocalDate date;
 
-    private String type;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Transaction(Double value, Boolean isCurrent, String description, LocalDate date, String type) {
+    public Transaction(Double value, Boolean isCurrent, String description, LocalDate date) {
         this.value = value;
         this.isCurrent = isCurrent;
         this.description = description;
         this.date = date;
-        this.type = type;
     }
+
+    public abstract TransactionDto toDto();
 }

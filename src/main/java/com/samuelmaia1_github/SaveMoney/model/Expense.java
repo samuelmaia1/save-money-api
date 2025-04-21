@@ -1,6 +1,7 @@
 package com.samuelmaia1_github.SaveMoney.model;
 
 import com.samuelmaia1_github.SaveMoney.dto.NewExpenseDto;
+import com.samuelmaia1_github.SaveMoney.dto.TransactionDto;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
@@ -28,6 +29,20 @@ public class Expense extends Transaction {
         super (data.value(), data.isCurrent(), data.description(), data.date(), "outcome");
         this.category = data.category();
         this.receiver = data.receiver();
+    }
+
+    @Override
+    public TransactionDto toDto() {
+        return new TransactionDto(
+                this.getId(),
+                "expense",
+                this.getValue(),
+                this.getDate(),
+                this.getDescription(),
+                this.getIsCurrent(),
+                this.getReceiver(),
+                this.getCategory()
+        );
     }
 
 }
