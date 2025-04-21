@@ -1,13 +1,15 @@
 package com.samuelmaia1_github.SaveMoney.service;
 
-import com.samuelmaia1_github.SaveMoney.dto.LoginDto;
-import com.samuelmaia1_github.SaveMoney.dto.UserRequestDto;
-import com.samuelmaia1_github.SaveMoney.dto.UserResponseDto;
+import com.samuelmaia1_github.SaveMoney.dto.*;
 import com.samuelmaia1_github.SaveMoney.exception.InvalidCredentialsException;
 import com.samuelmaia1_github.SaveMoney.exception.UserAlreadyExistsException;
 import com.samuelmaia1_github.SaveMoney.exception.UserNotFoundException;
 import com.samuelmaia1_github.SaveMoney.httpResponse.LoginResponse;
+import com.samuelmaia1_github.SaveMoney.model.Expense;
+import com.samuelmaia1_github.SaveMoney.model.Income;
+import com.samuelmaia1_github.SaveMoney.model.Transaction;
 import com.samuelmaia1_github.SaveMoney.model.User;
+import com.samuelmaia1_github.SaveMoney.repository.TransactionRepository;
 import com.samuelmaia1_github.SaveMoney.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +22,9 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository repository;
+
+    @Autowired
+    private TransactionRepository transactionRepository;
 
     @Autowired
     private DtoService dtoService;
@@ -43,8 +48,16 @@ public class UserService {
     }
 
     public UserResponseDto getUserById(String id) {
-        Optional<User> user = repository.findById(id);
-        return user.isPresent() ? dtoService.convertToUserDto(user.get()) : null;
+        User user = repository
+                    .findById(id)
+                    .orElseThrow(() -> new UserNotFoundException("Usuário não encontrado"));
+        return dtoService.convertToUserDto(user);
+    }
+
+    public User getUserEntityById(String id) {
+        return repository
+                .findById(id)
+                .orElseThrow(() -> new UserNotFoundException("Usuário não encontrado"));
     }
 
     public LoginResponse validateLogin(LoginDto loginData) {
@@ -66,6 +79,22 @@ public class UserService {
                 .stream()
                 .map(user -> dtoService.convertToUserDto(user))
                 .toList();
+    }
+
+    public TransactionDto addTransaction(TransactionRequestDto data, String userId) {
+        data.validate();
+
+        User user = getUserEntityById(userId);
+
+        Transaction transaction = data.isExpense() ? new Expense(data) : new Income(data);
+
+        transaction.setUser(user);
+        user.getTransactions().add(transaction);
+        repository.save(user);
+        transactionRepository.save(transaction);
+        System.out.println(transaction.getId());
+
+        return transaction.toDto();
     }
 
 }

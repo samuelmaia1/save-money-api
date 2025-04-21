@@ -2,6 +2,7 @@ package com.samuelmaia1_github.SaveMoney.model;
 
 import com.samuelmaia1_github.SaveMoney.dto.IncomeDto;
 import com.samuelmaia1_github.SaveMoney.dto.TransactionDto;
+import com.samuelmaia1_github.SaveMoney.dto.TransactionRequestDto;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
@@ -21,9 +22,16 @@ public class Income extends Transaction{
     @Size(max = 100)
     private String source;
 
+    public Income() {}
+
     public Income (IncomeDto data) {
         super (data.value(), data.isCurrent(), data.description(), data.date());
         this.source = data.source();
+    }
+
+    public Income(TransactionRequestDto data) {
+        super(data.getValue(), data.getCurrent(), data.getDescription(), data.getDate());
+        this.source = data.getSource();
     }
 
     public @NotNull @Size(max = 100) String getSource() {

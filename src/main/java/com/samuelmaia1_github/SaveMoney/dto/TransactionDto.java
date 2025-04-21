@@ -1,11 +1,9 @@
 package com.samuelmaia1_github.SaveMoney.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 import java.time.LocalDate;
 
-@AllArgsConstructor
 public class TransactionDto {
     private String id;
     private String type;
@@ -16,6 +14,8 @@ public class TransactionDto {
     private String source;
     private String receiver;
     private String category;
+
+    public TransactionDto() {}
 
     public TransactionDto(
             String id,

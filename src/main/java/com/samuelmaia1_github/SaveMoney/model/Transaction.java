@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @DiscriminatorColumn(name = "transaction_type", discriminatorType = DiscriminatorType.STRING)
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 public abstract class Transaction {
     @Id
@@ -31,6 +30,8 @@ public abstract class Transaction {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Transaction() {}
 
     public Transaction(Double value, Boolean isCurrent, String description, LocalDate date) {
         this.value = value;
@@ -61,6 +62,30 @@ public abstract class Transaction {
 
     public User getUser() {
         return user;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setValue(Double value) {
+        this.value = value;
+    }
+
+    public void setCurrent(Boolean current) {
+        isCurrent = current;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public abstract TransactionDto toDto();
