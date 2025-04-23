@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@NoArgsConstructor
 @DiscriminatorValue("EXPENSE")
 @Getter
 @Setter
