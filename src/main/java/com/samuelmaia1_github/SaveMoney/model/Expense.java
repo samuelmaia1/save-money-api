@@ -1,6 +1,5 @@
 package com.samuelmaia1_github.SaveMoney.model;
 
-import com.samuelmaia1_github.SaveMoney.dto.ExpenseDto;
 import com.samuelmaia1_github.SaveMoney.dto.TransactionDto;
 import com.samuelmaia1_github.SaveMoney.dto.TransactionRequestDto;
 import jakarta.persistence.DiscriminatorValue;
@@ -8,7 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -27,14 +25,8 @@ public class Expense extends Transaction {
 
     public Expense() {}
 
-    public Expense(ExpenseDto data) {
-        super (data.value(), data.isCurrent(), data.description(), data.date());
-        this.category = data.category();
-        this.receiver = data.receiver();
-    }
-
     public Expense(TransactionRequestDto data) {
-        super(data.getValue(), data.getCurrent(), data.getDescription(), data.getDate());
+        super(data.getValue(), data.getIsCurrent(), data.getDescription(), data.getDate(), data.getTitle());
         this.category = data.getCategory();
         this.receiver = data.getReceiver();
     }
@@ -57,7 +49,8 @@ public class Expense extends Transaction {
                 this.getDescription(),
                 this.getIsCurrent(),
                 this.getReceiver(),
-                this.getCategory()
+                this.getCategory(),
+                this.getTitle()
         );
     }
 

@@ -19,6 +19,8 @@ public abstract class Transaction {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    private String title;
+
     private Double value;
 
     private Boolean isCurrent;
@@ -33,11 +35,12 @@ public abstract class Transaction {
 
     public Transaction() {}
 
-    public Transaction(Double value, Boolean isCurrent, String description, LocalDate date) {
+    public Transaction(Double value, Boolean isCurrent, String description, LocalDate date, String title) {
         this.value = value;
         this.isCurrent = isCurrent;
         this.description = description;
         this.date = date;
+        this.title = title;
     }
 
     public String getId() {
@@ -86,6 +89,18 @@ public abstract class Transaction {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Boolean getCurrent() {
+        return isCurrent;
     }
 
     public abstract TransactionDto toDto();

@@ -12,6 +12,9 @@ public class TransactionRequestDto {
     @NotNull
     String type;
 
+    @NotNull
+    String title;
+
     @NotNull @Positive
     Double value;
 
@@ -29,6 +32,14 @@ public class TransactionRequestDto {
 
     String source;
 
+    public @NotNull String getTitle() {
+        return title;
+    }
+
+    public void setTitle(@NotNull String title) {
+        this.title = title;
+    }
+
     public @NotNull @Positive Double getValue() {
         return value;
     }
@@ -37,11 +48,11 @@ public class TransactionRequestDto {
         this.value = value;
     }
 
-    public @NotNull Boolean getCurrent() {
+    public @NotNull Boolean getIsCurrent() {
         return isCurrent;
     }
 
-    public void setCurrent(@NotNull Boolean current) {
+    public void setIsCurrent(@NotNull Boolean current) {
         isCurrent = current;
     }
 

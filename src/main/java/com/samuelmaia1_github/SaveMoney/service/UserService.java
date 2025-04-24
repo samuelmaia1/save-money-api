@@ -62,10 +62,12 @@ public class UserService {
 
     public LoginResponse validateLogin(LoginDto loginData) {
         System.out.println(loginData.email());
-        User user = repository.findByEmail(loginData.email());
+        Optional<User> optionalUser = repository.findByEmail(loginData.email());
 
-        if (user == null)
+        if (optionalUser.isEmpty())
             throw new UserNotFoundException("Usuário com este e-mail não encontrado.");
+
+        User user = optionalUser.get();
 
         if (!encoder.matches(loginData.password(), user.getPassword()))
             throw new InvalidCredentialsException("Senha inválida.");
