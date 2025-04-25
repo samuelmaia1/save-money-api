@@ -22,7 +22,7 @@ public class Income extends Transaction{
     public Income() {}
 
     public Income(TransactionRequestDto data) {
-        super(data.getValue(), data.getIsCurrent(), data.getDescription(), data.getDate(), data.getTitle());
+        super(data.getValue(), data.getDescription(), data.getDate(), data.getTitle(), data.getCategory());
         this.source = data.getSource();
     }
 
@@ -38,8 +38,8 @@ public class Income extends Transaction{
                 this.getValue(),
                 this.getDate(),
                 this.getDescription(),
-                this.getIsCurrent(),
                 this.getSource(),
+                this.getCategory(),
                 this.getTitle()
         );
     }

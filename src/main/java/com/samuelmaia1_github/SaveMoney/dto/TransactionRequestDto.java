@@ -1,6 +1,7 @@
 package com.samuelmaia1_github.SaveMoney.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.samuelmaia1_github.SaveMoney.exception.InvalidRequestBodyException;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -9,25 +10,25 @@ import jakarta.validation.constraints.Positive;
 import java.time.LocalDate;
 
 public class TransactionRequestDto {
-    @NotNull
+    @NotNull(message = "Campo tipo deve ser preenchido")
     String type;
 
-    @NotNull
+    @NotNull(message = "Campo título deve ser preenchido")
     String title;
 
-    @NotNull @Positive
+    @NotNull(message = "Campo valor deve ser preenchido")
+    @Positive(message = "Campo valor deve ser positivo")
     Double value;
 
-    @NotNull
-    Boolean isCurrent;
-
-    @NotBlank
+    @NotBlank(message = "Campo descrição deve ser preenchido")
     String description;
 
-    @NotNull @PastOrPresent @JsonFormat
+    @NotNull @PastOrPresent @JsonFormat(pattern = "dd/MM/yyyy")
     LocalDate date;
 
     String receiver;
+
+    @NotNull(message = "Campo categoria deve ser preenchido")
     String category;
 
     String source;
@@ -46,14 +47,6 @@ public class TransactionRequestDto {
 
     public void setValue(@NotNull @Positive Double value) {
         this.value = value;
-    }
-
-    public @NotNull Boolean getIsCurrent() {
-        return isCurrent;
-    }
-
-    public void setIsCurrent(@NotNull Boolean current) {
-        isCurrent = current;
     }
 
     public @NotBlank String getDescription() {
@@ -106,10 +99,10 @@ public class TransactionRequestDto {
 
     public void validate() {
         if (isExpense() && (receiver == null || category == null)) {
-            throw new IllegalArgumentException("Atributos receiver e category necessários");
+            throw new InvalidRequestBodyException("Campos destino e categoria não devem estar vazios.");
         }
         if (isIncome() && source == null) {
-            throw new IllegalArgumentException("Atributo source é necessário");
+            throw new InvalidRequestBodyException("Campo fonte não deve estar vazio.");
         }
     }
 

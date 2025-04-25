@@ -10,7 +10,6 @@ public class TransactionDto {
     private Double value;
     private LocalDate date;
     private String description;
-    private Boolean isCurrent;
     private String source;
     private String receiver;
     private String category;
@@ -24,28 +23,7 @@ public class TransactionDto {
             Double value,
             LocalDate date,
             String description,
-            Boolean isCurrent,
             String source,
-            String title
-    ) {
-        this.id = id;
-        this.type = type;
-        this.value = value;
-        this.date = date;
-        this.description = description;
-        this.isCurrent = isCurrent;
-        this.source = source;
-        this.title = title;
-    }
-
-    public TransactionDto(
-            String id,
-            String type,
-            Double value,
-            LocalDate date,
-            String description,
-            Boolean isCurrent,
-            String receiver,
             String category,
             String title
     ) {
@@ -54,7 +32,27 @@ public class TransactionDto {
         this.value = value;
         this.date = date;
         this.description = description;
-        this.isCurrent = isCurrent;
+        this.source = source;
+        this.title = title;
+        this.category = category;
+    }
+
+    public TransactionDto(
+            String id,
+            String type,
+            Double value,
+            LocalDate date,
+            String description,
+            String receiver,
+            String category,
+            String title,
+            Boolean isExpense
+    ) {
+        this.id = id;
+        this.type = type;
+        this.value = value;
+        this.date = date;
+        this.description = description;
         this.receiver = receiver;
         this.category = category;
         this.title = title;
@@ -78,10 +76,6 @@ public class TransactionDto {
 
     public String getDescription() {
         return description;
-    }
-
-    public Boolean getIsCurrent() {
-        return isCurrent;
     }
 
     public String getSource() {

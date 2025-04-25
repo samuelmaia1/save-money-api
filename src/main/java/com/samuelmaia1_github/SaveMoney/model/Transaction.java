@@ -23,11 +23,11 @@ public abstract class Transaction {
 
     private Double value;
 
-    private Boolean isCurrent;
-
     private String description;
 
     private LocalDate date;
+
+    private String category;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -35,12 +35,12 @@ public abstract class Transaction {
 
     public Transaction() {}
 
-    public Transaction(Double value, Boolean isCurrent, String description, LocalDate date, String title) {
+    public Transaction(Double value, String description, LocalDate date, String title, String category) {
         this.value = value;
-        this.isCurrent = isCurrent;
         this.description = description;
         this.date = date;
         this.title = title;
+        this.category = category;
     }
 
     public String getId() {
@@ -49,10 +49,6 @@ public abstract class Transaction {
 
     public Double getValue() {
         return value;
-    }
-
-    public Boolean getIsCurrent() {
-        return isCurrent;
     }
 
     public String getDescription() {
@@ -75,10 +71,6 @@ public abstract class Transaction {
         this.value = value;
     }
 
-    public void setCurrent(Boolean current) {
-        isCurrent = current;
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -99,8 +91,12 @@ public abstract class Transaction {
         this.title = title;
     }
 
-    public Boolean getCurrent() {
-        return isCurrent;
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public abstract TransactionDto toDto();

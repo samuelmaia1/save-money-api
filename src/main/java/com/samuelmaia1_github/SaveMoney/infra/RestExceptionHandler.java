@@ -1,20 +1,21 @@
 package com.samuelmaia1_github.SaveMoney.infra;
 
 import com.samuelmaia1_github.SaveMoney.exception.InvalidCredentialsException;
+import com.samuelmaia1_github.SaveMoney.exception.InvalidRequestBodyException;
 import com.samuelmaia1_github.SaveMoney.exception.UserAlreadyExistsException;
 import com.samuelmaia1_github.SaveMoney.exception.UserNotFoundException;
 import com.samuelmaia1_github.SaveMoney.httpResponse.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDateTime;
 
 @ControllerAdvice
-public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+public class RestExceptionHandler {
 
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<ErrorResponse> handleUserAlreadyExists(UserAlreadyExistsException exception, WebRequest request) {
@@ -40,6 +41,26 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorResponse> handleInvalidCredentials(InvalidCredentialsException exception, WebRequest request) {
 
         HttpStatus status = HttpStatus.UNAUTHORIZED;
+
+        return ResponseEntity
+                .status(status)
+                .body(buildErrorResponse(status, exception.getMessage(), request));
+    }
+
+    @ExceptionHandler(InvalidRequestBodyException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidRequestBody(InvalidRequestBodyException exception, WebRequest request) {
+
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+
+        return ResponseEntity
+                .status(status)
+                .body(buildErrorResponse(status, exception.getMessage(), request));
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponse> handleValidationErrors(MethodArgumentNotValidException exception, WebRequest request) {
+
+        HttpStatus status = HttpStatus.BAD_REQUEST;
 
         return ResponseEntity
                 .status(status)

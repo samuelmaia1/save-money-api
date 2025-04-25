@@ -29,7 +29,6 @@ public class AuthService {
     private DtoService dtoService;
 
     public LoginResponse validateLogin(LoginDto loginData) {
-        System.out.println(loginData.email());
         Optional<User> optionalUser = repository.findByEmail(loginData.email());
 
         if (optionalUser.isEmpty())

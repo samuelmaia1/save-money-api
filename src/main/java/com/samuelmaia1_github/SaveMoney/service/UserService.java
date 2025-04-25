@@ -93,7 +93,6 @@ public class UserService {
         transaction.setUser(user);
         user.getTransactions().add(transaction);
         repository.save(user);
-        transactionRepository.save(transaction);
 
         return transaction.toDto();
     }

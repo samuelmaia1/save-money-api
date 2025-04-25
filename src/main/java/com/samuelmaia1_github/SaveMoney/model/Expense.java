@@ -16,23 +16,14 @@ import lombok.Setter;
 public class Expense extends Transaction {
 
     @NotNull
-    @Size(max = 50)
-    private String category;
-
-    @NotNull
     @Size(max = 100)
     private String receiver;
 
     public Expense() {}
 
     public Expense(TransactionRequestDto data) {
-        super(data.getValue(), data.getIsCurrent(), data.getDescription(), data.getDate(), data.getTitle());
-        this.category = data.getCategory();
+        super(data.getValue(), data.getDescription(), data.getDate(), data.getTitle(), data.getCategory());
         this.receiver = data.getReceiver();
-    }
-
-    public @NotNull @Size(max = 50) String getCategory() {
-        return category;
     }
 
     public @NotNull @Size(max = 100) String getReceiver() {
@@ -47,10 +38,10 @@ public class Expense extends Transaction {
                 this.getValue(),
                 this.getDate(),
                 this.getDescription(),
-                this.getIsCurrent(),
                 this.getReceiver(),
                 this.getCategory(),
-                this.getTitle()
+                this.getTitle(),
+                true
         );
     }
 
